@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        input, button {
+            display: block;
+            margin: 10px 0;
+            padding: 8px;
+            width: 300px;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Registration Form</h2>
+
+<form id="registrationForm" onsubmit="return validateForm()">
+    <label>Name:</label>
+    <input type="text" id="name" placeholder="Enter your name">
+    <span id="nameError" class="error"></span>
+
+    <label>Email:</label>
+    <input type="text" id="email" placeholder="Enter your email">
+    <span id="emailError" class="error"></span>
+
+    <label>Password:</label>
+    <input type="password" id="password" placeholder="Enter password">
+    <span id="passwordError" class="error"></span>
+
+    <label>Phone Number:</label>
+    <input type="text" id="phone" placeholder="Enter 10-digit phone number">
+    <span id="phoneError" class="error"></span>
+
+    <label>Date of Birth:</label>
+    <input type="date" id="dob">
+    <span id="dobError" class="error"></span>
+
+    <button type="submit">Register</button>
+</form>
+
+<script>
+function validateForm() {
+    var isValid = true;
+
+    document.getElementById("nameError").innerHTML = "";
+    document.getElementById("emailError").innerHTML = "";
+    document.getElementById("passwordError").innerHTML = "";
+    document.getElementById("phoneError").innerHTML = "";
+    document.getElementById("dobError").innerHTML = "";
+
+    var name = document.getElementById("name").value.trim();
+    var nameRegex = /^[A-Za-z ]{3,}$/;
+    if (!nameRegex.test(name)) {
+        document.getElementById("nameError").innerHTML = "Name must be at least 3 letters and contain only alphabets.";
+        isValid = false;
+    }
+
+
+    var email = document.getElementById("email").value.trim();
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        document.getElementById("emailError").innerHTML = "Enter a valid email (e.g., user@domain.com)";
+        isValid = false;
+    }
+
+    var password = document.getElementById("password").value;
+    var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+        document.getElementById("passwordError").innerHTML = "Password must be at least 8 chars, include uppercase, lowercase, number, and special character.";
+        isValid = false;
+    }
+
+    var phone = document.getElementById("phone").value.trim();
+    var phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phone)) {
+        document.getElementById("phoneError").innerHTML = "Phone number must be 10 digits.";
+        isValid = false;
+    }
+
+    var dob = document.getElementById("dob").value;
+    if (dob === "") {
+        document.getElementById("dobError").innerHTML = "Please select your date of birth.";
+        isValid = false;
+    }
+
+    return isValid; 
+}
+</script>
+
+</body>
+</html>
