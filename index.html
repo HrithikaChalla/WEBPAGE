@@ -2,25 +2,24 @@
 <html>
 <head>
     <title>Registration Form</title>
-   <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 30px;
-    }
-    input, button, select {
-        display: block;
-        margin: 10px 0;
-        padding: 8px;
-        width: 300px;
-    }
-    .error {
-        color: red;
-        font-size: 0.9em;
-        display: block;  
-        margin-bottom: 5px; 
-    }
-</style>
-
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        input, button, select {
+            display: block;
+            margin: 10px 0;
+            padding: 8px;
+            width: 300px;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            display: block;  
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
 
@@ -44,7 +43,7 @@
     <span id="phoneError" class="error"></span>
 
     <label>Date of Birth:</label>
-    <input type="date" id="dob">
+    <input type="text" id="dob" placeholder="YYYY-MM-DD">
     <span id="dobError" class="error"></span>
 
     <button type="submit">Register</button>
@@ -54,6 +53,7 @@
 function validateForm() {
     var isValid = true;
 
+    // Clear previous errors
     document.getElementById("nameError").innerHTML = "";
     document.getElementById("emailError").innerHTML = "";
     document.getElementById("passwordError").innerHTML = "";
@@ -67,20 +67,20 @@ function validateForm() {
         isValid = false;
     }
 
-
     var email = document.getElementById("email").value.trim();
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         document.getElementById("emailError").innerHTML = "Enter a valid email (e.g., user@domain.com)";
         isValid = false;
     }
-
+    
     var password = document.getElementById("password").value;
     var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
         document.getElementById("passwordError").innerHTML = "Password must be at least 8 chars, include uppercase, lowercase, number, and special character.";
         isValid = false;
     }
+
 
     var phone = document.getElementById("phone").value.trim();
     var phoneRegex = /^\d{10}$/;
@@ -89,9 +89,10 @@ function validateForm() {
         isValid = false;
     }
 
-    var dob = document.getElementById("dob").value;
-    if (dob === "") {
-        document.getElementById("dobError").innerHTML = "Please select your date of birth.";
+    var dob = document.getElementById("dob").value.trim();
+    var dobRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dobRegex.test(dob)) {
+        document.getElementById("dobError").innerHTML = "Date of Birth must be in format YYYY-MM-DD";
         isValid = false;
     }
 
@@ -101,3 +102,4 @@ function validateForm() {
 
 </body>
 </html>
+
